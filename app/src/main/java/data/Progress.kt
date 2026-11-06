@@ -12,4 +12,3 @@ data class Progress(
     val gameStarted: Boolean = false,
     val lastPlayed: Long = System.currentTimeMillis()
 )
-
