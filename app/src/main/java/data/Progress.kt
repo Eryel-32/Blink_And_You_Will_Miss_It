@@ -1,9 +1,7 @@
 package data
 
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-
 
 @Entity(tableName = "game_progress")
 data class Progress(
