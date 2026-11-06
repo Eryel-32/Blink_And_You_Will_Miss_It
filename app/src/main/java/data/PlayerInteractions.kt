@@ -12,3 +12,5 @@ data class PlayerInteraction(
     val interacted: Boolean = true
 )
 
+
+
