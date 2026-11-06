@@ -1,14 +1,15 @@
-package com.griffith.blink_and_you_will_miss_it
 
+package com.griffith.blink_and_you_will_miss_it
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.sp
+import screens.IntroScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -17,25 +18,27 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MaterialTheme {
+
+                var currentScreen by remember {
+                    mutableStateOf("intro")
+                }
+
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = "Blink And You Will Miss It",
-                            fontSize = 32.sp
+
+                    when (currentScreen) {
+
+                        "intro" -> IntroScreen(
+                            onContinue = {
+                                currentScreen = "home"
+                            }
                         )
 
-                        Text(
-                            text = "Your story begins here."
-                        )
                     }
                 }
             }
         }
     }
 }
+
