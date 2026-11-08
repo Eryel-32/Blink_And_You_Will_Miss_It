@@ -52,12 +52,27 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+
     // Room Database
     val roomVersion = "2.8.5"
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
+
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.3.0")
+
+    // CameraX
+    implementation("androidx.camera:camera-core:1.5.1")
+    implementation("androidx.camera:camera-camera2:1.5.1")
+    implementation("androidx.camera:camera-lifecycle:1.5.1")
+    implementation("androidx.camera:camera-view:1.5.1")
+
+    // Google ML Kit Face Detection
+    implementation("com.google.mlkit:face-detection:16.1.7")
+
+    // DataStore for saving settings
+    implementation("androidx.datastore:datastore-preferences:1.1.7")
+
 
 }
