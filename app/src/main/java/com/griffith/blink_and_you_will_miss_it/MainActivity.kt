@@ -8,12 +8,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import screens.AudioSettingsScreen
 import screens.CameraCalibratorScreen
+import screens.CameraSettingsScreen
 import screens.ConfigurationsScreen
 import screens.CreditsScreen
 import screens.HomeScreen
 import screens.IntroScreen
+import screens.SensitivityConfigurationScreen
 import screens.StartScreen
+import screens.TextSettingsScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -69,9 +73,52 @@ class MainActivity : ComponentActivity() {
                             }
                         )
 
+
                         "configurations" -> ConfigurationsScreen(
+                            onCameraSettings = {
+                                currentScreen = "cameraSettings"
+                            },
+                            onSensitivitySettings = {
+                                currentScreen = "sensitivitySettings"
+                            },
+                            onTextSettings = {
+                                currentScreen = "textSettings"
+                            },
+                            onAudioSettings = {
+                                currentScreen = "audioSettings"
+                            },
                             onBack = {
                                 currentScreen = "home"
+                            }
+                        )
+
+                        "cameraSettings" -> CameraSettingsScreen(
+                            onBack = {
+                                currentScreen = "configurations"
+                            }
+                        )
+
+                        "sensitivitySettings" -> SensitivityConfigurationScreen(
+                            onBack = {
+                                currentScreen = "configurations"
+                            }
+                        )
+
+                        "textSettings" -> TextSettingsScreen(
+                            onBack = {
+                                currentScreen = "configurations"
+                            }
+                        )
+
+                        "audioSettings" -> AudioSettingsScreen(
+                            onBack = {
+                                currentScreen = "configurations"
+                            }
+                        )
+
+                        "textSettings" -> TextSettingsScreen(
+                            onBack = {
+                                currentScreen = "configurations"
                             }
                         )
 
@@ -86,5 +133,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
