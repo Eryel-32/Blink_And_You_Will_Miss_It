@@ -1,53 +1,58 @@
 package screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.text.font.Font
-import com.griffith.blink_and_you_will_miss_it.R
-import java.nio.file.WatchEvent
 
 @Composable
 fun ConfigurationsScreen(
+    onCameraSettings: () -> Unit,
+    onSensitivitySettings: () -> Unit,
+    onTextSettings: () -> Unit,
+    onAudioSettings: () -> Unit,
     onBack: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+
         Text(
             text = "Configurations",
             fontSize = 40.sp,
-            fontFamily = eva16,
-            fontWeight = FontWeight.Bold
+            fontFamily = eva16
         )
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-        Text("Camera Settings", fontFamily = eva16)
-        Text("Blinking Sensitivity", fontFamily = eva16)
-        Text("Text Settings", fontFamily = eva16)
-        Text("Audio Settings", fontFamily = eva16)
+        Button(onClick = onCameraSettings) {
+            Text("Camera Settings", fontFamily = eva16)
+        }
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Button(onClick = onSensitivitySettings) {
+            Text("Blinking Sensitivity", fontFamily = eva16)
+        }
+
+        Button(onClick = onTextSettings) {
+            Text("Text Settings", fontFamily = eva16)
+        }
+
+        Button(onClick = onAudioSettings) {
+            Text("Audio Settings", fontFamily = eva16)
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
 
         Button(onClick = onBack) {
-            Text("Back", fontFamily = eva16, fontSize = 40.sp)
+            Text("Back", fontFamily = eva16)
         }
     }
 }
-
 
 class ConfigurationsScreen {
 }
