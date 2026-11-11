@@ -35,7 +35,7 @@ fun ConfigurationsScreen(
         }
 
         Button(onClick = onSensitivitySettings) {
-            Text("Blinking Sensitivity", fontFamily = eva16)
+            Text("Sensitivity Settings", fontFamily = eva16)
         }
 
         Button(onClick = onTextSettings) {
