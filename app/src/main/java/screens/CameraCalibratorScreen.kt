@@ -45,11 +45,11 @@ fun CameraCalibratorScreen(
             fontSize = 32.sp
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(35.dp))
 
         if (cameraPermissionGranted) {
             Box(
-                modifier = Modifier.width(400.dp).height(200.dp).background(Color.Black),
+                modifier = Modifier.width(300.dp).height(150.dp).background(Color.Black),
                 contentAlignment = Alignment.Center
             ) {
                 CameraPreview(
@@ -57,7 +57,7 @@ fun CameraCalibratorScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(35.dp))
 
             Text(
                 text = "Position your face in front of the camera.",
