@@ -6,21 +6,34 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import data.ConfigurationsDataStore
+import kotlinx.coroutines.launch
 
 @Composable
 fun SensitivityConfigurationScreen(
     onBack: () -> Unit
 ) {
+
+    val context = LocalContext.current
+    val dataStore = remember { ConfigurationsDataStore(context) }
+    val scope = rememberCoroutineScope()
+
+    // saved sensitivity
+    val savedSensitivity by dataStore.sensitivity.collectAsState(initial = 50f)
+
+    // local slider value
     var sensitivity by remember {
         mutableFloatStateOf(50f)
     }
 
+    //update the slider
+    LaunchedEffect((savedSensitivity)) { sensitivity = savedSensitivity}
+
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
+        modifier = Modifier.fillMaxSize().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -31,15 +44,7 @@ fun SensitivityConfigurationScreen(
             fontFamily = eva16
         )
 
-        Spacer(modifier = Modifier.height(35.dp))
-
-        Text(
-            text = "Camera Sensitivity",
-            fontSize = 26.sp,
-            fontFamily = eva16
-        )
-
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         Text(
             text = "${sensitivity.toInt()}%",
@@ -50,6 +55,9 @@ fun SensitivityConfigurationScreen(
         Slider(
             value = sensitivity,
             onValueChange = { sensitivity = it },
+            onValueChangeFinished = {scope.launch {
+                dataStore.saveSensitivity(sensitivity)
+            }},
             valueRange = 0f..100f
         )
 
@@ -61,7 +69,7 @@ fun SensitivityConfigurationScreen(
             Text("High", fontFamily = eva16)
         }
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         Text(
             text = "Adjust how quickly the camera responds when you tilt your phone.",
@@ -69,7 +77,7 @@ fun SensitivityConfigurationScreen(
             fontFamily = eva16
         )
 
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         Button(onClick = onBack) {
             Text(
