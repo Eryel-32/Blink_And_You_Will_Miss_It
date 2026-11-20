@@ -5,13 +5,26 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import data.ConfigurationsDataStore
+import kotlinx.coroutines.launch
 
 @Composable
 fun AudioSettingsScreen(
     onBack: () -> Unit
 ) {
+
+    val context = LocalContext.current
+    val dataStore = remember { ConfigurationsDataStore(context) }
+    val scope = rememberCoroutineScope()
+
+    // get values
+    val savedMusicVolume by dataStore.musicVolume.collectAsState(initial = 70f)
+    val savedSoundVolume by dataStore.soundVolume.collectAsState(initial = 70f)
+
+    // sliders values
     var musicVolume by remember {
         mutableFloatStateOf(70f)
     }
@@ -19,6 +32,10 @@ fun AudioSettingsScreen(
     var soundVolume by remember {
         mutableFloatStateOf(70f)
     }
+
+    // uodate the values
+    LaunchedEffect(savedMusicVolume) { musicVolume = savedMusicVolume }
+    LaunchedEffect(savedSoundVolume) { soundVolume = savedSoundVolume }
 
     Column(
         modifier = Modifier.fillMaxSize().padding(24.dp),
@@ -43,6 +60,9 @@ fun AudioSettingsScreen(
         Slider(
             value = musicVolume,
             onValueChange = { musicVolume = it },
+            onValueChangeFinished = {scope.launch {
+                dataStore.saveMusicVolume(musicVolume)
+            }},
             valueRange = 0f..100f
         )
 
@@ -57,6 +77,9 @@ fun AudioSettingsScreen(
         Slider(
             value = soundVolume,
             onValueChange = { soundVolume = it },
+            onValueChangeFinished = {scope.launch {
+                dataStore.saveSoundVolume(soundVolume)
+            }},
             valueRange = 0f..100f
         )
 
